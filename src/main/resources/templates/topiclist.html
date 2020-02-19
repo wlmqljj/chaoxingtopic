@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>题库</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/templatemo-style.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <header class="text-center tm-site-header">
+                <h1 class="pl-4 tm-site-title">超星尔雅题库</h1>
+            </header>
+        </div>
+    </div>
+</div>
+
+<div class="container tm-container-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="get" action="/getTopicByKeyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="" name="keyword">
+                    <span class="input-group-btn">
+                                <input type="submit" class="btn btn-info" value="搜索">
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="tm-section-mb" th:each="item: ${topiclist}">
+        <div class="col-lg-12">
+            <div class="tm-timeline-item">
+                <div class="tm-timeline-item-inner">
+                    <div class="tm-timeline-description-wrap">
+                        <div class="tm-bg-dark-light tm-timeline-description">
+                            <h3 class="tm-text-cyan tm-font-400" th:text="${{item.question}}"></h3>
+                            <p th:text="${{item.answer}}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <p>© 2019 - LLLXY &nbsp;&nbsp; 豫ICP备18041216号</p>
+    </div>
+</body>
+</html>

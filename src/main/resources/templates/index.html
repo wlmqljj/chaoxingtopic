@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>题库</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/templatemo-style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <header class="text-center tm-site-header">
+                <h1 class="pl-4 tm-site-title">超星尔雅题库</h1>
+            </header>
+        </div>
+    </div>
+</div>
+
+
+<div class="container tm-container-2">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="get" action="/getTopicByKeyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入关键字" name="keyword">
+                    <span class="input-group-btn">
+                            <input type="submit" class="btn btn-info" value="搜索">
+                        </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="tm-section-mb">
+        <div class="col-lg-12">
+
+
+            <div class=" tm-timeline-item">
+                <div class="tm-timeline-item-inner">
+                    <div class="tm-timeline-description-wrap">
+                        <div class="tm-bg-dark tm-timeline-description">
+                            <h3 class="tm-text-green tm-font-400">题库记录数量</h3>
+                            <p th:text="'截至  '+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}+'  服务器中题目数量为'+ ${topicCount} +'道'"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tm-timeline-item">
+                <div class="tm-timeline-item-inner">
+                    <div class="tm-timeline-description-wrap">
+                        <div class="tm-bg-dark-light tm-timeline-description">
+                            <h3 class="tm-text-cyan tm-font-400">使用声明</h3>
+                            <p>刷课题目中存在<u>题目重名</u>但<u>答案不同</u>的题目，所以题库中答案<u>不能保证100%正确</u>，请根据情况酌情使用，另外开发者只是个学生，水平有限，轻喷非常感谢！！！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container">
+    <p>© 2019 - LLLXY &nbsp;&nbsp; 豫ICP备18041216号</p>
+</div>
+
+</body></html>
