@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import site.ccczg.chaoxingtopic.bean.Topic;
 import site.ccczg.chaoxingtopic.service.TopicService;
 
+import java.nio.channels.ShutdownChannelGroupException;
 import java.util.List;
 
 /**
@@ -22,11 +23,6 @@ public class TopicController {
     @Autowired
     private TopicService service;
 
-    @GetMapping("/add")
-    public String add() {
-        return "add";
-    }
-
     /**
      * 主页
      * @return
@@ -35,6 +31,22 @@ public class TopicController {
     public String index(Model model) {
         model.addAttribute("topicCount",service.getTopicCount());
         return "index";
+    }
+
+    /**
+     *
+     * @param keyword
+     * @return
+     */
+    @GetMapping("/getTopic")
+    @ResponseBody
+    public String getTopic(@RequestParam(required = true) String keyword) {
+        Topic topic = service.getTopic(keyword);
+        if (topic == null) {
+            return "jsonpCallback("+null+")";
+        }
+        String answer = topic.getAnswer();
+        return "jsonpCallback("+'\"'+answer+'\"'+")";
     }
 
     /**
@@ -57,6 +69,9 @@ public class TopicController {
     @GetMapping(value = "/insertTopic",produces="text/plain;charset=UTF-8")
     @ResponseBody
     public String insertTopic(String question,String answer) {
+        if (question == null || answer == null) {
+            return "请正确输入参数";
+        }
         Topic topic = new Topic();
         topic.setQuestion(question);
         topic.setAnswer(answer);

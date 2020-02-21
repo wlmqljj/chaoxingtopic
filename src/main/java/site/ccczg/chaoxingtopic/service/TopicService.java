@@ -19,6 +19,10 @@ public class TopicService {
         return topicMapper.getTopicCount();
     }
 
+    public Topic getTopic(String keyword) {
+        return topicMapper.getTopic(keyword);
+    }
+
     public List<Topic> getTopicByKeyword(String keyword){
         return topicMapper.getTopicByKeyword(keyword);
     }
