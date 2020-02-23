@@ -34,7 +34,7 @@ public class TopicController {
     }
 
     /**
-     *
+     * 获取题目接口
      * @param keyword
      * @return
      */
@@ -63,22 +63,27 @@ public class TopicController {
     }
 
     /**
-     * 新增
+     * 新增题目接口
      * @return
      */
     @GetMapping(value = "/insertTopic",produces="text/plain;charset=UTF-8")
     @ResponseBody
-    public String insertTopic(String question,String answer) {
-        if (question == null || answer == null) {
-            return "请正确输入参数";
-        }
+    public String insertTopic(@RequestParam(required = true) String question, @RequestParam(required = true)String answer) {
         Topic topic = new Topic();
         topic.setQuestion(question);
         topic.setAnswer(answer);
-        if (service.insertTopic(topic) > 0) {
-            return "新增成功";
-        }else {
-            return "新增失败";
+
+        Topic serviceTopic = service.getTopicByQuestion(question);
+
+        if (serviceTopic == null) {
+            if (service.insertTopic(topic) > 0) {
+                return "jsonpCallback("+'\"'+"新增成功"+'\"'+")";
+            }else {
+                return "jsonpCallback("+'\"'+"新增失败"+'\"'+")";
+            }
+        } else {
+            service.updateTopic(serviceTopic.getQuestion(),topic.getAnswer());
+            return "jsonpCallback("+'\"'+"更改成功"+'\"'+")";
         }
     }
 }

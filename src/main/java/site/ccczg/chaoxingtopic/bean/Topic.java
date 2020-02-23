@@ -3,20 +3,11 @@ package site.ccczg.chaoxingtopic.bean;
 /**
  * @author: Effort
  * @date: 2020-02-18 16:43
- * @description:
+ * @description:题目
  */
 public class Topic {
-    private Long id;
     private String question;
     private String answer;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getQuestion() {
         return question;

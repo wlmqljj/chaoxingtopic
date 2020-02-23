@@ -17,7 +17,9 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 /**
- * 中文乱码解决
+ * @author: Effort
+ * @date: 2020-02-18 16:43
+ * @description:字符编码设置
  */
 @Configuration
 public class CharsetConfig extends WebMvcConfigurerAdapter {

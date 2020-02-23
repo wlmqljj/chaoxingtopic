@@ -2,6 +2,8 @@ server:
   port: 8435
   tomcat:
     uri-encoding: UTF-8
+  servlet:
+    context-path: /cxtk
 spring:
   datasource:
     url: jdbc:mysql://47.112.15.249:3306/chaoxingtopic?serverTimezone=UTC&characterEncoding=utf-8

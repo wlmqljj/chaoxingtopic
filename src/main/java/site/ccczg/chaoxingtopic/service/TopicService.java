@@ -30,5 +30,10 @@ public class TopicService {
     public int insertTopic(Topic topic){
         return topicMapper.insertTopic(topic);
     }
-
+    public int updateTopic(String question,String answer) {
+        return topicMapper.updateTopic(answer,question);
+    }
+    public Topic getTopicByQuestion(String question) {
+        return topicMapper.getTopicByQuestion(question);
+    }
 }
