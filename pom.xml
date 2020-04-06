@@ -11,7 +11,7 @@
 
     <groupId>site.ccczg</groupId>
     <artifactId>chaoxingtopic</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>ChaoXingTopic</name>
     <description>ChaoXingTopic</description>
 
@@ -22,6 +22,10 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
         <!--Springboot整合JDBC-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
