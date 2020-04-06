@@ -1,6 +1,5 @@
 package site.ccczg.chaoxingtopic.service;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import site.ccczg.chaoxingtopic.bean.Topic;

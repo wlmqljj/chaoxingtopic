@@ -1,15 +1,12 @@
 package site.ccczg.chaoxingtopic.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import site.ccczg.chaoxingtopic.bean.Topic;
 import site.ccczg.chaoxingtopic.service.TopicService;
 
-import java.nio.channels.ShutdownChannelGroupException;
 import java.util.List;
 
 /**
@@ -30,6 +27,7 @@ public class TopicController {
     @GetMapping(value = {"/index","/"})
     public String index(Model model) {
         model.addAttribute("topicCount",service.getTopicCount());
+        model.addAttribute("flag",false);
         return "index";
     }
 
@@ -41,6 +39,9 @@ public class TopicController {
     @GetMapping("/getTopic")
     @ResponseBody
     public String getTopic(@RequestParam(required = true) String keyword) {
+        if (keyword.equals("")) {
+            return "jsonpCallback("+null+")";
+        }
         Topic topic = service.getTopic(keyword);
         if (topic == null) {
             return "jsonpCallback("+null+")";
@@ -57,9 +58,17 @@ public class TopicController {
     @GetMapping("/getTopicByKeyword")
     public String Topiclist(@RequestParam(required = true) String keyword,
                             Model model) {
+        if (keyword.length() < 3) {
+            model.addAttribute("topicCount",service.getTopicCount());
+            model.addAttribute("flag",false);
+            return "index";
+        }
+
         List<Topic> getTopicByKeyword = service.getTopicByKeyword(keyword);
+        model.addAttribute("topicCount",service.getTopicCount());
         model.addAttribute("topiclist",getTopicByKeyword);
-        return "topiclist";
+        model.addAttribute("flag",true);
+        return "index";
     }
 
     /**
@@ -68,7 +77,10 @@ public class TopicController {
      */
     @GetMapping(value = "/insertTopic",produces="text/plain;charset=UTF-8")
     @ResponseBody
-    public String insertTopic(@RequestParam(required = true) String question, @RequestParam(required = true)String answer) {
+    public String insertTopic(String question, String answer) {
+        if (question.equals("")||answer.equals("")||answer.equals(" ")||question.equals(" ")) {
+            return "jsonpCallback("+'\"'+"新增失败"+'\"'+")";
+        }
         Topic topic = new Topic();
         topic.setQuestion(question);
         topic.setAnswer(answer);

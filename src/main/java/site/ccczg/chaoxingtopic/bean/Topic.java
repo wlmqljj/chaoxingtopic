@@ -6,6 +6,7 @@ package site.ccczg.chaoxingtopic.bean;
  * @description:题目
  */
 public class Topic {
+
     private String question;
     private String answer;
 
