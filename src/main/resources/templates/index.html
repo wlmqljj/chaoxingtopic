@@ -1,69 +1,120 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>题库</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/templatemo-style.css}" href="/css/templatemo-style.css">
-</head>
-<body>
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <header class="text-center tm-site-header">
-                <h1 class="pl-4 tm-site-title">超星尔雅题库</h1>
-            </header>
-        </div>
-    </div>
-</div>
-
-
-<div class="container tm-container-2">
-    <div class="row">
-        <div class="col-lg-12">
-            <form method="get" action="/cxtk/getTopicByKeyword">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入关键字" name="keyword">
-                    <span class="input-group-btn">
-                            <input type="submit" class="btn btn-info" value="搜索">
-                        </span>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>题库</title>
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
+    </head>
+    <body>
+        <!--Title-->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <header class="text-center tm-site-header">
+                        <h1 class="pl-4 tm-site-title">超星尔雅题库</h1>
+                    </header>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
 
-
-    <div class="tm-section-mb">
-        <div class="col-lg-12">
-            <div class=" tm-timeline-item">
-                <div class="tm-timeline-item-inner">
-                    <div class="tm-timeline-description-wrap">
-                        <div class="tm-bg-dark tm-timeline-description">
-                            <h3 class="tm-text-green tm-font-400">题库记录数量</h3>
-                            <p th:text="'截至  '+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}+'  服务器中题目数量为'+ ${topicCount} +'道'"></p>
+        <div class="container tm-container-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form method="get" th:action="@{/getTopicByKeyword}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="请输入关键字" name="keyword">
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-info" value="搜索">
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tm-section-mb"  th:if="!${flag}">
+                <div class="col-lg-12">
+                    <div class=" tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark tm-timeline-description">
+                                    <h3 class="tm-text-green tm-font-400">题库记录数量</h3>
+                                    <p th:text="'截至  '+${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd HH:mm:ss')}+'  服务器中题目数量为'+ ${topicCount} +'道'"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark-light tm-timeline-description">
+                                    <h3 class="tm-text-cyan tm-font-400">使用声明</h3>
+                                    <p>刷课题目中存在<u>题目重名</u>但<u>答案不同</u>的题目，所以题库中答案<u>不能保证100%正确</u>，请根据情况酌情使用。</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="tm-timeline-item">
-                <div class="tm-timeline-item-inner">
-                    <div class="tm-timeline-description-wrap">
-                        <div class="tm-bg-dark-light tm-timeline-description">
-                            <h3 class="tm-text-cyan tm-font-400">使用声明</h3>
-                            <p>刷课题目中存在<u>题目重名</u>但<u>答案不同</u>的题目，所以题库中答案<u>不能保证100%正确</u>，请根据情况酌情使用。</p>
+            <div class="tm-section-mb"  th:if="${flag}">
+                <div class="col-lg-12">
+                    <div class=" tm-timeline-item" th:if="${#lists.isEmpty(topiclist)}">
+                        <div class="tm-timeline-item-inner">
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark tm-timeline-description">
+                                    <h3 class="tm-text-green tm-font-400">什么也没有找到</h3>
+                                    <p>没有找到相关的题目，请复制题目中部分内容进行搜索</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tm-timeline-item" th:each="item: ${topiclist}">
+                        <div class="tm-timeline-item-inner">
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark-light tm-timeline-description">
+                                    <h3 class="tm-text-cyan tm-font-400" th:text="${{item.question}}"></h3>
+                                    <p th:if="${item.answer=='ri'}" >正确</p>
+                                    <p th:if="${item.answer=='wr'}" >错误</p>
+                                    <p th:if="${item.answer!='ri' && item.answer !='wr'}" th:text="${{item.answer}}" ></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="container">
-    <p>© 2020 - CCCZG &nbsp;&nbsp; 豫ICP备19007999号</p>
-</div>
-</body>
+
+        <!--footer-->
+        <footer class="footer navbar-fixed-bottom">
+            <div class="container text-center text-muted">
+                <p>Copyright © 2019 - <span th:text="${#dates.year(#dates.createNow())}">2020</span> <a href="https://www.cczg.site">CCCZG</a> and <a href="https://www.lllxy.net">LLLXY</a> 版权所有  <a href="http://www.beian.miit.gov.cn" >豫ICP备19007999号</a></p>
+            </div>
+        </footer>
+
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?6f39d7fec3711cb099a529483b27bbb5";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+        <!-- require APlayer -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+        <!-- require MetingJS -->
+        <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+        <meting-js
+            server="netease"
+            type="playlist"
+            id="59621614"
+            mini="true"
+            theme="#2E2E2E"
+            fixed="true"
+            autoplay="false"
+            order="random">
+        </meting-js>
+    </body>
 </html>

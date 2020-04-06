@@ -13,6 +13,16 @@
     <link href='http://fonts.googleapis.com/css?family=Nova+Flat' rel='stylesheet' type='text/css'>
     <!-- custom CSS here -->
     <link th:href="@{/css/style.css}" href="/css/style.css" rel="stylesheet" />
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6f39d7fec3711cb099a529483b27bbb5";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
 </head>
 <body>
 <div class="container">
@@ -31,6 +41,7 @@
             <a href="/cxtk" class="btn btn-primary">返回首页</a>
         </div>
     </div>
+</div>
     <!-- /.container -->
     <!--Core JavaScript file  -->
     <script th:src="@{/js/jquery-1.10.2.js}" src="/js/jquery-1.10.2.js"></script>
@@ -40,5 +51,6 @@
     <script th:src="@{/js/countUp.js}" src="/js/countUp.js"></script>
        <!--Custom JavaScript file  -->
     <script th:src="@{/js/404.js}" src="/js/404.js"></script>
+
 </body>
 </html>
