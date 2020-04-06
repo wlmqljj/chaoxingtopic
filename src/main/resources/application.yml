@@ -6,9 +6,9 @@ server:
     context-path: /cxtk
 spring:
   datasource:
-    url: jdbc:mysql://47.112.15.249:3306/chaoxingtopic?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://xxxxx/chaoxingtopic?serverTimezone=UTC&characterEncoding=utf-8
     username: root
-    password: 981623
+    password: xxxx
     driver-class-name: com.mysql.jdbc.Driver
   thymeleaf:
     cache: false
@@ -19,8 +19,3 @@ spring:
       enabled: true
 mybatis:
   type-aliases-package: site.ccczg.chaoxingtopic.bean
-logging:
-  level:
-    root: info
-    site.ccczg.chaoxingtopic: debug
-    file: log/chaoxinglog.log
